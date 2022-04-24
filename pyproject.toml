@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["n-sassa <sshr2943@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.0.4"
+djangorestframework = "^3.13.1"
+djoser = "^2.1.0"
+django-cors-headers = "^3.11.0"
+djangorestframework-simplejwt = "^4.8.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^22.3.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+mypy = "^0.942"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black.dev-dependencies]
+line-length = 79
+
+[tool.flake8.dev-dependencies]
+max-line-length = 79
+max-complexity = 20
+
+[tool.isort.dev-dependencies]
+line_length = 79
+force_single_line = false
+
+[tool.mypy.dev-dependencies]
+ignore_missing_imports = 1
