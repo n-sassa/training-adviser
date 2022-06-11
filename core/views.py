@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .serializers import (
-    NextExerciseSerializer,
     UserSerializer,
     ProfileSerializer,
     ExerciseSerializer,
@@ -48,7 +47,7 @@ class ExerciseLogViewSet(viewsets.ModelViewSet):
 
 
 class NextExerciseView(APIView):
-    def get(self, request, format=None):
+    def get(self, request):
         exercise_flag = (
             Profile.objects.filter(user=request.user)
             .values("exercise_flag")
@@ -56,8 +55,6 @@ class NextExerciseView(APIView):
             .get("exercise_flag")
         )
         exercises = Exercise.objects.all()
-
-        print(exercise_flag, exercises)
 
         if not exercise_flag:
             next_exercise = exercises.filter(exercise_type__contains="A")
