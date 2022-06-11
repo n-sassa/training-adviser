@@ -40,10 +40,10 @@ StrongLiftsはたったの5種目のトレーニングを行うだけです。
 - python 3.9.13
 
 # ライブラリ
-- Django 3.2
-- DjangoRESTframework 3.12.4
-- djangorestframework-simplejwt 4.6.0
-- django-cors-headers 3.7.0
+- Django 4.0.4
+- DjangoRESTframework 3.13.1
+- djangorestframework-simplejwt 4.8.0
+- django-cors-headers 3.11.0
 - djoser 2.1.0
 - ulid-py 1.1.0
 
