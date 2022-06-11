@@ -1,4 +1,3 @@
-from django.core import validators
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (
@@ -9,6 +8,15 @@ from django.contrib.auth.models import (
 import ulid
 
 from utils.customfield import ULIDField
+
+
+class BaseModel(models.Model):
+    id = ULIDField(default=ulid.new, primary_key=True, editable=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class UserManager(BaseUserManager):
@@ -45,19 +53,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class Profile(models.Model):
-    id = ULIDField(default=ulid.new, primary_key=True, editable=False)
+class Profile(BaseModel):
     nickname = models.CharField(max_length=20, null=True, blank=False, default="名無し")
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     exercise_flag = models.BooleanField(default=False)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.nickname
 
 
-class Exercise(models.Model):
+class Exercise(BaseModel):
 
     EXERCISE_TYPE_CHOICES = (("A", "SetA"), ("B", "SetB"), ("AB", "Always"))
 
@@ -66,15 +71,12 @@ class Exercise(models.Model):
     name = models.CharField(max_length=50)
     exercise_type = models.CharField(max_length=2, choices=EXERCISE_TYPE_CHOICES)
     default_rep = models.CharField(max_length=2, choices=DEFAULT_REP_CHOICES)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
 
-class ExerciseLog(models.Model):
-    id = ULIDField(default=ulid.new, primary_key=True, editable=False)
+class ExerciseLog(BaseModel):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     exercise_date = models.DateField()
@@ -84,8 +86,6 @@ class ExerciseLog(models.Model):
     three_set = models.PositiveSmallIntegerField(default=0)
     four_set = models.PositiveSmallIntegerField(default=0)
     five_set = models.PositiveSmallIntegerField(default=0)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.user}: {self.set_weight}"
