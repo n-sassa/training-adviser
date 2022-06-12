@@ -13,7 +13,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.9]
+        poetry-version: [1.1.6]
 
     steps:
     - uses: actions/checkout@v3
@@ -21,11 +22,31 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+    - name: Install Poetry
       run: |
         python -m pip install --upgrade pip
-        pip install poetry
+        python -m pip install poetry==${{ matrix.poetry-version }}
+    - name: Cache Poetry virtualenv
+      uses: actions/cache@v3.0.4
+      id: cache
+      with:
+        path: .venv
+        key: poetry-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          poetry-${{ hashFiles('**/poetry.lock') }}
+    - name: Set Poetry config
+      run: |
+        poetry config virtualenvs.create true
+        poetry config virtualenvs.in-project true
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        poetry config experimental.new-installer false
         poetry install
     - name: Run Tests
+      env:
+        DJANGO_SECRET_KEY: oij&v^+ptb@v@lbzh)7c@sb$d&0&fa$o-!85odq7i9tc)e2*-!
+        DJANGO_SETTINGS_MODULE: training_adviser.settings
       run: |
-        python manage.py test
+        poetry run python manage.py test
+        
