@@ -5,6 +5,9 @@ services:
       context: ./
       dockerfile: Dockerfile
       target: development
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      IS_PRODUCTION: ${IS_PRODUCTION}
     volumes:
       - ./:/app
     ports:
