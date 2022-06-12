@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# NOTE: 通常は環境変数使って隠すけど今はそのままで。
-SECRET_KEY = "django-insecure-qwhuqivre90a-4stylz6n+o0zqt1+-qw#1(^wjg1u)a2rcuj85"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# NOTE: 通常は環境変数使って切り替えるけど今はそのままで。
-DEBUG = True
+# 今後はsettings.pyをbase.py、develop.py、production.pyに分けたい
+if os.getenv("IS_PRODUCTION") == "true":
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = []
 
