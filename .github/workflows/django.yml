@@ -25,7 +25,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install poetry
-        poetry install
+        poetry install --no-dev
+        env:
+          DJANGO_SECRET_KEY: oij&v^+ptb@v@lbzh)7c@sb$d&0&fa$o-!85odq7i9tc)e2*-!
     - name: Run Tests
       run: |
         python manage.py test
