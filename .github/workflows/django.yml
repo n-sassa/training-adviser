@@ -48,5 +48,14 @@ jobs:
         DJANGO_SECRET_KEY: oij&v^+ptb@v@lbzh)7c@sb$d&0&fa$o-!85odq7i9tc)e2*-!
         DJANGO_SETTINGS_MODULE: training_adviser.settings
       run: |
-        poetry run python manage.py test
-        
+        poetry run coverage run --source='.' --omit="*/tests/*" --omit="*/migrations/*" ./manage.py test
+        poetry run coverage xml
+    - name: Upload Coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true
+        verbose: true

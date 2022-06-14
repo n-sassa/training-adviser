@@ -51,7 +51,7 @@ StrongLiftsはたったの5種目のトレーニングを行うだけです。
 # 仮想環境
 - docker
 
-# CI/CD
+# CI
 - GitHub Actions ※単体テストは未実装
 
 # 機能
