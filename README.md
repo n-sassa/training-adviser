@@ -1,4 +1,4 @@
-![example workflow](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg)
+![example workflow](https://github.com/n-sassa/training-adviser-rest/actions/workflows/django.yml/badge.svg)
 # training_adviser API
 「筋トレ初心者でジムに通い始めるけど何から始めればいいか分からない」  
 そんな方におすすめの**StrongLifts 5×5メソッド**を実践するためのAPIです。  
