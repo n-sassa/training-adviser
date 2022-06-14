@@ -11,15 +11,24 @@ from utils.customfield import ULIDField
 
 
 class BaseModel(models.Model):
+    """ベースモデル
+    共通項目を設定しておき継承して使う
+    """
+
     id = ULIDField(default=ulid.new, primary_key=True, editable=False)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
 
 
 class UserManager(BaseUserManager):
+    """カスタムユーザーマネージャ
+    Django標準ではusernameとpasswordで認証するところを
+    emailとpasswordで認証できるようにする
+    """
+
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Emailは必須です")
@@ -40,6 +49,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """カスタムユーザモデル
+    django標準はusernameでユーザ登録するが
+    emailで登録するようカスタム
+    """
+
     id = ULIDField(default=ulid.new, primary_key=True, editable=False)
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
@@ -54,15 +68,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(BaseModel):
+    """プロフィール"""
+
     nickname = models.CharField(max_length=20, null=True, blank=False, default="名無し")
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     exercise_flag = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "profile"
 
     def __str__(self):
         return self.nickname
 
 
 class Exercise(BaseModel):
+    """トレーニング種目"""
 
     EXERCISE_TYPE_CHOICES = (("A", "SetA"), ("B", "SetB"), ("AB", "Always"))
 
@@ -72,11 +92,16 @@ class Exercise(BaseModel):
     exercise_type = models.CharField(max_length=2, choices=EXERCISE_TYPE_CHOICES)
     default_rep = models.CharField(max_length=2, choices=DEFAULT_REP_CHOICES)
 
+    class Meta:
+        db_table = "exercise"
+
     def __str__(self):
         return self.name
 
 
 class ExerciseLog(BaseModel):
+    """トレーニング記録"""
+
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     exercise_date = models.DateField()
@@ -86,6 +111,9 @@ class ExerciseLog(BaseModel):
     three_set = models.PositiveSmallIntegerField(default=0)
     four_set = models.PositiveSmallIntegerField(default=0)
     five_set = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        db_table = "exercise_log"
 
     def __str__(self):
         return f"{self.user}: {self.set_weight}"

@@ -2,6 +2,10 @@ from django.db import models
 
 
 class ULIDField(models.CharField):
+    """ULIDField
+    UUIDに順序性をもたせたフィールド
+    """
+
     def __init__(self, *args, **kwargs):
         kwargs["max_length"] = 26
         super(ULIDField, self).__init__(*args, **kwargs)
