@@ -25,6 +25,6 @@ def change_exercise_flag(sender, instance, created, **kwargs):
         )
 
         if queryset_count == 3:
-            user_profile = Profile.objects.filter(user=instance.user).first()
+            user_profile = Profile.objects.get(user=instance.user)
             user_profile.exercise_flag = not user_profile.exercise_flag
             user_profile.save()

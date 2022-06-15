@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -27,6 +27,18 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        response = {"message": "PUT method is not allowed"}
+        return Response(response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def destroy(self, request, *args, **kwargs):
+        response = {"message": "DELETE method is not allowed"}
+        return Response(response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def partial_update(self, request, *args, **kwargs):
+        response = {"message": "PATCH method is not allowed"}
+        return Response(response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
