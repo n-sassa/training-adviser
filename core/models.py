@@ -88,6 +88,7 @@ class Exercise(BaseModel):
 
     DEFAULT_REP_CHOICES = (("1", "1rep / 1set"), ("5", "5rep / 1set"))
 
+    code = models.PositiveSmallIntegerField()
     name = models.CharField(max_length=50)
     exercise_type = models.CharField(max_length=2, choices=EXERCISE_TYPE_CHOICES)
     default_rep = models.CharField(max_length=2, choices=DEFAULT_REP_CHOICES)

@@ -1,12 +1,13 @@
+from .constants import ExerciseSettings
 from .models import Exercise, ExerciseLog, Profile
 
 
 def create_default_exercises(sender, **kwargs):
-    Exercise.objects.get_or_create(name="スクワット", exercise_type="AB", default_rep=5)
-    Exercise.objects.get_or_create(name="ベンチプレス", exercise_type="A", default_rep=5)
-    Exercise.objects.get_or_create(name="バーベルロウ", exercise_type="A", default_rep=5)
-    Exercise.objects.get_or_create(name="ショルダープレス", exercise_type="B", default_rep=5)
-    Exercise.objects.get_or_create(name="デッドリフト", exercise_type="B", default_rep=1)
+    Exercise.objects.get_or_create(**ExerciseSettings.SQUAT)
+    Exercise.objects.get_or_create(**ExerciseSettings.BENCH_PRESS)
+    Exercise.objects.get_or_create(**ExerciseSettings.BARBELL_ROWING)
+    Exercise.objects.get_or_create(**ExerciseSettings.SHOULDER_PRESS)
+    Exercise.objects.get_or_create(**ExerciseSettings.DEAD_LIFT)
 
 
 def create_user_profile(sender, instance, created, **kwargs):
