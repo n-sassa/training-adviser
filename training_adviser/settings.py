@@ -80,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "training_adviser.wsgi.application"
 
+# APIの共通権限をログイン済みのユーザのみとする
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -89,6 +90,7 @@ REST_FRAMEWORK = {
     ],
 }
 
+# djangorestframework-simplejwtの設定
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),

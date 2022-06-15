@@ -14,13 +14,13 @@ djangorestframework-simplejwt = "^4.8.0"
 ulid-py = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
 black = "^22.3.0"
 flake8 = "^4.0.1"
 isort = "^5.10.1"
 mypy = "^0.942"
-factory-boy = "^3.2.1"
-coverage = "^6.4.1"
+pytest-django = "^4.5.2"
+pytest-factoryboy = "^2.5.0"
+pytest-cov = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -39,3 +39,8 @@ force_single_line = false
 
 [tool.mypy.dev-dependencies]
 ignore_missing_imports = 1
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE="training_adviser.settings"
+addopts="--cov core --cov-report=xml"
+python_files=["test_*.py", "*_tests.py"]
