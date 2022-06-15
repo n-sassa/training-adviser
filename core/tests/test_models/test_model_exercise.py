@@ -18,7 +18,6 @@ def test_row_count():
 def test_check_exercise_details():
     """トレーニング種目の内容が正しく登録されているか確認"""
     exercise_all = Exercise.objects.order_by("code").values()
-    print(exercise_all)
 
     for setting in ExerciseSettings.EXERCISE_SETTINGS_LIST:
         exercise = next(

@@ -22,5 +22,4 @@ def test_is_created(exercise_log_factory):
     exercise_log = exercise_log_factory.create(
         exercise=exercise_all[0], exercise_date=datetime.date(2022, 1, 1)
     )
-    print(exercise_log)
     assert True
