@@ -25,11 +25,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
     def create(self, request, *args, **kwargs):
-        response = {"message": "PUT method is not allowed"}
+        response = {"message": "POST method is not allowed"}
         return Response(response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def destroy(self, request, *args, **kwargs):

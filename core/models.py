@@ -63,7 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
 
-    def __str__(self):
+    def __str__(self):  # pragma: nocover
         return self.email
 
 
@@ -77,7 +77,7 @@ class Profile(BaseModel):
     class Meta:
         db_table = "profile"
 
-    def __str__(self):
+    def __str__(self):  # pragma: nocover
         return self.nickname
 
 
@@ -96,7 +96,7 @@ class Exercise(BaseModel):
     class Meta:
         db_table = "exercise"
 
-    def __str__(self):
+    def __str__(self):  # pragma: nocover
         return self.name
 
 
@@ -116,5 +116,5 @@ class ExerciseLog(BaseModel):
     class Meta:
         db_table = "exercise_log"
 
-    def __str__(self):
+    def __str__(self):  # pragma: nocover
         return f"{self.user}: {self.set_weight}"
