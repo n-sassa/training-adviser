@@ -42,5 +42,8 @@ ignore_missing_imports = 1
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="training_adviser.settings"
-addopts="--cov core --cov-report=xml"
+addopts="--cov --cov-report=html"
 python_files=["test_*.py", "*_tests.py"]
+
+[tool.coverage.run]
+omit=["*/tests/*", "*/__init__.py", "*/migrations/*", "*/settings.py", "*/urls.py", "*/admin.py", "*/constants.py"]

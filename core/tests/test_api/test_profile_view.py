@@ -73,13 +73,28 @@ def test_post_profile_view():
     assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
 
-def test_delete_profile_view():
+@pytest.mark.django_db
+def test_delete_profile_view(user_factory):
     """deleteのテスト"""
-    response = client.delete("/api/v1/profile/")
+    user = user_factory.create()
+    client.force_authenticate(user)
+    profile = Profile.objects.get(user=user)
+    url = f"/api/v1/profile/{profile.id}/"
+    response = client.delete(url)
     assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
 
-def test_patch_profile_view():
+@pytest.mark.django_db
+def test_patch_profile_view(user_factory):
     """patchのテスト"""
-    response = client.patch(f"/api/v1/profile/")
+    user = user_factory.create()
+    client.force_authenticate(user)
+    profile = Profile.objects.get(user=user)
+    url = f"/api/v1/profile/{profile.id}/"
+    nickname = "test"
+    response = client.patch(
+        url,
+        {"id": str(user.id), "nickname": nickname},
+        format="json",
+    )
     assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
