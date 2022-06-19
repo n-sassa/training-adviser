@@ -16,7 +16,6 @@ djangorestframework-simplejwt = "^4.8.0"
 black = "^22.3.0"
 flake8 = "^4.0.1"
 isort = "^5.10.1"
-mypy = "^0.942"
 pytest-django = "^4.5.2"
 pytest-factoryboy = "^2.5.0"
 pytest-cov = "^3.0.0"
@@ -41,7 +40,7 @@ ignore_missing_imports = 1
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="training_adviser.settings"
-addopts="--cov --cov-report=html"
+addopts="--cov --cov-report=xml"
 python_files=["test_*.py", "*_tests.py"]
 
 [tool.coverage.run]
