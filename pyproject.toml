@@ -40,7 +40,7 @@ ignore_missing_imports = 1
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="training_adviser.settings"
-addopts="--cov --cov-report=xml"
+addopts="--cov --cov-report=html"
 python_files=["test_*.py", "*_tests.py"]
 
 [tool.coverage.run]
