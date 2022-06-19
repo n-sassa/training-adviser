@@ -47,6 +47,10 @@ StrongLiftsはたったの5種目のトレーニングを行うだけです。
 - djangorestframework-simplejwt 4.8.0
 - django-cors-headers 3.11.0
 - djoser 2.1.0
+- pytest
+- pytest-cov
+- pytest-django
+- pytest-factoryboy
 
 # 仮想環境
 - docker
