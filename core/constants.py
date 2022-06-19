@@ -1,3 +1,6 @@
+from rest_framework import status
+
+
 class ExerciseSettings:
     SQUAT = {
         "code": 1,
@@ -37,3 +40,7 @@ class ExerciseSettings:
         SHOULDER_PRESS,
         DEAD_LIFT,
     ]
+
+
+class ResMsg:
+    OVERWORK = {"data":{"message": "オーバーワーク！"}, "status": status.HTTP_400_BAD_REQUEST}

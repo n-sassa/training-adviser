@@ -11,7 +11,6 @@ djangorestframework = "^3.13.1"
 djoser = "^2.1.0"
 django-cors-headers = "^3.11.0"
 djangorestframework-simplejwt = "^4.8.0"
-ulid-py = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
@@ -42,7 +41,7 @@ ignore_missing_imports = 1
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE="training_adviser.settings"
-addopts="--cov --cov-report=xml"
+addopts="--cov --cov-report=html"
 python_files=["test_*.py", "*_tests.py"]
 
 [tool.coverage.run]
