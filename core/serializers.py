@@ -104,7 +104,8 @@ class NextExerciseSerializer(serializers.ModelSerializer):
         recent_exercise_log = ExerciseLog.objects.filter(
             exercise_date=recent_exercise_date
         )
-        if len(recent_exercise_log) <= 3:
+
+        if len(recent_exercise_log) < 3:
             return str(exercise_log_list[0].set_weight)
 
         sets = [
@@ -115,12 +116,13 @@ class NextExerciseSerializer(serializers.ModelSerializer):
             exercise_log_list[0].five_set,
         ]
         default_rep = int(exercise_log_list[0].exercise.default_rep)
-        sets_average = sum(sets) / default_rep
+        target_total_weight = (exercise_log_list[0].set_weight * default_rep) * 5
+        total_weight = sum(map(lambda x: x * exercise_log_list[0].set_weight, sets))
 
-        if sets_average >= default_rep:
-            if default_rep == 5:
-                return str(exercise_log_list[0].set_weight + Decimal(2.5))
-            return str(exercise_log_list[0].set_weight + Decimal(5))
+        if total_weight >= target_total_weight:
+            if instance.code == ExerciseSettings.DEAD_LIFT["code"]:
+                return str(exercise_log_list[0].set_weight + Decimal(5))
+            return str(exercise_log_list[0].set_weight + Decimal(2.5))
 
         return str(exercise_log_list[0].set_weight)
 

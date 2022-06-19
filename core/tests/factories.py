@@ -1,10 +1,10 @@
 import datetime
+from decimal import Decimal
 
 import factory
 import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from factory.fuzzy import FuzzyInteger, FuzzyDecimal
 
 from factory.django import DjangoModelFactory
 from faker import Faker
@@ -41,9 +41,9 @@ class ExerciseLogFactory(DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     exercise_date = datetime.date(2022, 1, 1)
-    set_weight = FuzzyDecimal(0.0, 999.9, 1)
-    one_set = FuzzyInteger(0, 5)
-    two_set = FuzzyInteger(0, 5)
-    three_set = FuzzyInteger(0, 5)
-    four_set = FuzzyInteger(0, 5)
-    five_set = FuzzyInteger(0, 5)
+    set_weight = Decimal(20.0)
+    one_set = 5
+    two_set = 5
+    three_set = 5
+    four_set = 5
+    five_set = 5
