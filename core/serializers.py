@@ -67,7 +67,6 @@ class ExerciseLogSerializer(serializers.ModelSerializer):
             "three_set",
             "four_set",
             "five_set",
-            # "next_set_weight",
             "created_at",
             "updated_at",
         ]
