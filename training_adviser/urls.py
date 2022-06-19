@@ -14,7 +14,7 @@ router = routers.DefaultRouter()
 
 router.register("profile", ProfileViewSet, basename="profile")
 router.register("exercises", ExerciseViewSet, basename="exercises")
-router.register("exerciselog", ExerciseLogViewSet, basename="exerciselog")
+router.register("exercise-log", ExerciseLogViewSet, basename="exercise-log")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

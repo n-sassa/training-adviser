@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (
@@ -5,9 +7,6 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-import ulid
-
-from utils.customfield import ULIDField
 
 
 class BaseModel(models.Model):
@@ -15,7 +14,7 @@ class BaseModel(models.Model):
     共通項目を設定しておき継承して使う
     """
 
-    id = ULIDField(default=ulid.new, primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -54,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     emailで登録するようカスタム
     """
 
-    id = ULIDField(default=ulid.new, primary_key=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

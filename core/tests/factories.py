@@ -4,13 +4,12 @@ import factory
 import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.utils import timezone
-from factory.fuzzy import FuzzyDateTime, FuzzyInteger, FuzzyDecimal, FuzzyDate
+from factory.fuzzy import FuzzyInteger, FuzzyDecimal
 
 from factory.django import DjangoModelFactory
 from faker import Faker
 
-from core.models import Profile, ExerciseLog, Exercise
+from core.models import Profile, ExerciseLog
 
 tzinfo = pytz.timezone(settings.TIME_ZONE)
 UserModel = get_user_model()
@@ -41,6 +40,7 @@ class ExerciseLogFactory(DjangoModelFactory):
         model = ExerciseLog
 
     user = factory.SubFactory(UserFactory)
+    exercise_date = datetime.date(2022, 1, 1)
     set_weight = FuzzyDecimal(0.0, 999.9, 1)
     one_set = FuzzyInteger(0, 5)
     two_set = FuzzyInteger(0, 5)
